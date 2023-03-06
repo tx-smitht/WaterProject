@@ -14,20 +14,24 @@ namespace WaterProject.Controllers
 
         public HomeController (IWaterProjectRepository temp) => repo = temp;
 
-        public IActionResult Index(int page_num = 1)
+        public IActionResult Index(string projectType, int page_num = 1)
         {
             int results_per_page = 5;
 
             var x = new ProjectsViewModel
             {
                 Projects = repo.Projects
+                .Where(p => p.ProjectType == projectType || projectType == null)
                 .OrderBy(p => p.ProjectName)
                 .Skip((page_num - 1) * results_per_page)
                 .Take(results_per_page),
 
                 PageInfo = new PageInfo
                 {
-                    TotalNumProjects = repo.Projects.Count(),
+                    TotalNumProjects = 
+                        (projectType == null 
+                            ? repo.Projects.Count() 
+                            : repo.Projects.Where(x=> x.ProjectType == projectType).Count()),
                     ProjectsPerPage = results_per_page,
                     CurrentPage = page_num
                 }

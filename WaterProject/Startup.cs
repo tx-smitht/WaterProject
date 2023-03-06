@@ -48,10 +48,18 @@ namespace WaterProject
             app.UseEndpoints(endpoints =>
             // the order of these matters. The first one matches, it'll run. Doesn't matter if there's more.
             {
+                endpoints.MapControllerRoute("typepage","{projectType}/Page_{page_num}",
+                new {Controller = "Home", action = "Index"});
+                
                 endpoints.MapControllerRoute(
                     name: "Paging",
                     pattern: "Page_{page_num}",
-                    defaults: new { Controller = "Home", action = "Index" });
+                    defaults: new { Controller = "Home", action = "Index", page_num = 1 });
+
+                endpoints.MapControllerRoute("type", "{projectType}",
+                    new { Controller = "Home", action = "Index", page_num = 1 });
+
+                
 
                 endpoints.MapDefaultControllerRoute(); // Controller, Action, ID route. We previously wrote it out
             });
