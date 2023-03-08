@@ -32,6 +32,9 @@ namespace WaterProject
                options.UseSqlite(Configuration["ConnectionStrings:WaterDBConnection"]);
            });
             services.AddScoped<IWaterProjectRepository, EFWaterProjectRepository>();
+            services.AddRazorPages();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }   
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +45,7 @@ namespace WaterProject
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles(); // Use WWWroot
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -62,6 +65,7 @@ namespace WaterProject
                 
 
                 endpoints.MapDefaultControllerRoute(); // Controller, Action, ID route. We previously wrote it out
+                endpoints.MapRazorPages();
             });
         }
     }
