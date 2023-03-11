@@ -28,6 +28,8 @@ namespace WaterProject.Controllers
 
                 PageInfo = new PageInfo
                 {
+                    // The total number of projects is set to the amount of projects there are if given
+                    // a project type. If not given a project type, then it is the total number of projects
                     TotalNumProjects = 
                         (projectType == null 
                             ? repo.Projects.Count() 

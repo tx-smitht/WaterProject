@@ -35,6 +35,10 @@ namespace WaterProject
             services.AddRazorPages();
             services.AddDistributedMemoryCache();
             services.AddSession();
+
+            // If basket has already been set up it will grab it. If not, it will create a new one
+            services.AddScoped<Basket>(x => SessionBasket.GetBasket(x));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }   
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
