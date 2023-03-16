@@ -32,7 +32,10 @@ namespace WaterProject
                options.UseSqlite(Configuration["ConnectionStrings:WaterDBConnection"]);
            });
             services.AddScoped<IWaterProjectRepository, EFWaterProjectRepository>();
+            services.AddScoped<IDonationRepository, EFDonationRepository>();
+           
             services.AddRazorPages();
+            
             services.AddDistributedMemoryCache();
             services.AddSession();
 

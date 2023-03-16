@@ -21,5 +21,8 @@ namespace WaterProject.Models
 
         public DbSet<Project> Projects { get; set; }
 
+        // this is the file that coordinates the connection to the database, 
+        // this is what tells migrations what to include. 
+        public DbSet<Donation> Donations { get; set; }
     }
 }
